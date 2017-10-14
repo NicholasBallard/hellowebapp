@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block title %}
+    Homepage - {{ block.super }}
+{% endblock title %}
+
+{% block content %}
+    <h1>Hello World!</h1>
+    <!-- Here is the variable we are passing in. Ahhh... dynamic content... -->
+    <!-- <p>This is my name: {{ thing }}</p> -->
+    <!-- <p>This is my name: {{ thing|slugify }}</p> -->
+    <p>This is my name: {{ thing|truncatewords:1 }}</p>
+{% endblock content %}
