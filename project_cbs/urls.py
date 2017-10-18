@@ -21,8 +21,7 @@ from django.contrib.auth.views import (
 )
 from django.conf.urls import url, include
 from django.contrib import admin
-from django.views.generic import TemplateView
-
+from django.views.generic import (TemplateView, RedirectView)
 from app_cbs import views
 from app_cbs.backends import MyRegistrationView
 
@@ -35,11 +34,24 @@ urlpatterns = [
     url(r'^contact$',
         TemplateView.as_view(template_name='contact.html'),
         name='contact'),
+        
+    url(r'^things/$', RedirectView.as_view(
+        pattern_name='browse', permanent=True)),
     url(r'^things/(?P<slug>[-\w]+)/$', views.thing_detail,
         name='thing_detail'),
     url(r'^things/(?P<slug>[-\w]+)/edit/$',
         views.edit_thing,
         name='edit_thing'),
+
+    # our new redirect view
+    url(r'^browse/$', RedirectView.as_view(
+        pattern_name='browse', permanent=True)),
+    # our new browse flow
+    url(r'^browse/name/$',
+        views.browse_by_name, name='browse'),
+    url(r'^browse/name/(?P<initial>[-\w]+)/$',
+        views.browse_by_name, name='browse_by_name'),
+
     url(r'^accounts/password/reset/$',
         password_reset,
         {'template_name': 'registration/password_reset_form.html'},
@@ -61,6 +73,7 @@ urlpatterns = [
         name='registration_register'),
     url(r'^accounts/create_thing/$', views.create_thing,
         name='registration_create_thing'),
+
     url(r'^accounts/',
         include('registration.backends.simple.urls')),
     url(r'^admin/', admin.site.urls),
