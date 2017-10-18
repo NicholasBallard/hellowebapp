@@ -24,6 +24,7 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 
 from app_cbs import views
+from app_cbs.backends import MyRegistrationView
 
 urlpatterns = [
     url(r'^$', views.index, name='home'),
@@ -55,6 +56,11 @@ urlpatterns = [
         password_reset_complete,
         {'template_name': 'registration/password_reset_complete.html'},
         name="password_reset_complete"),
+    url(r'^accounts/register/$',
+        MyRegistrationView.as_view(),
+        name='registration_register'),
+    url(r'^accounts/create_thing/$', views.create_thing,
+        name='registration_create_thing'),
     url(r'^accounts/',
         include('registration.backends.simple.urls')),
     url(r'^admin/', admin.site.urls),
