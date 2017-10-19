@@ -34,7 +34,6 @@ urlpatterns = [
     url(r'^contact$',
         TemplateView.as_view(template_name='contact.html'),
         name='contact'),
-        
     url(r'^things/$', RedirectView.as_view(
         pattern_name='browse', permanent=True)),
     url(r'^things/(?P<slug>[-\w]+)/$', views.thing_detail,
@@ -42,7 +41,6 @@ urlpatterns = [
     url(r'^things/(?P<slug>[-\w]+)/edit/$',
         views.edit_thing,
         name='edit_thing'),
-
     # our new redirect view
     url(r'^browse/$', RedirectView.as_view(
         pattern_name='browse', permanent=True)),
@@ -51,7 +49,6 @@ urlpatterns = [
         views.browse_by_name, name='browse'),
     url(r'^browse/name/(?P<initial>[-\w]+)/$',
         views.browse_by_name, name='browse_by_name'),
-
     url(r'^accounts/password/reset/$',
         password_reset,
         {'template_name': 'registration/password_reset_form.html'},
@@ -73,7 +70,6 @@ urlpatterns = [
         name='registration_register'),
     url(r'^accounts/create_thing/$', views.create_thing,
         name='registration_create_thing'),
-
     url(r'^accounts/',
         include('registration.backends.simple.urls')),
     url(r'^admin/', admin.site.urls),
